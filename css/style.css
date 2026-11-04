@@ -167,7 +167,7 @@ p { margin: 0 0 1em; }
 /* ---------- Мероприятия ---------- */
 .event-date { font: 700 1rem var(--font-head); color: var(--green-dark); }
 .event-card__more { background: none; border: 0; padding: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; min-height: 44px; }
-.event-card__more h3 { text-decoration: underline; text-decoration-color: var(--green); text-underline-offset: 4px; }
+.event-card__more { text-decoration: underline; text-decoration-color: var(--green); text-underline-offset: 4px; }
 .event-card__details { color: var(--muted); }
 
 /* ---------- Промокод ---------- */
