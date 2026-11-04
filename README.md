@@ -5,7 +5,7 @@
 | Что | Ссылка |
 |---|---|
 | Сайт на Vercel | https://tz-17-kovorking-tochka-sborki.vercel.app |
-| Репозиторий | https://github.com/___/tz-17-kovorking-tochka-sborki |
+| Репозиторий | https://github.com/dothefuture/tz-17-kovorking-tochka-sborki |
 | Таблица заявок «TochkaSborki — Leads» | ___ |
 | Дашборд DataLens | ___ |
 | Instagram | ___ |
