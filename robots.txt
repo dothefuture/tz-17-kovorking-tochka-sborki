@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /thanks.html
+Sitemap: https://tz-17-kovorking-tochka-sborki.vercel.app/sitemap.xml

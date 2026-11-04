@@ -216,3 +216,5 @@ p { margin: 0 0 1em; }
 .prose { max-width: 820px; }
 .prose h2 { font-size: 1.35rem; margin-top: 1.6em; }
 .center { text-align: center; }
+.logo { min-height: 44px; }
+.footer__bottom a { display: inline-flex; align-items: center; min-height: 44px; }
