@@ -53,7 +53,7 @@ function doPost(e) {
     var row = type === 'event'
       ? [data.request_id, now, data.event_id, safe_(data.name), safe_(data.email),
          utm.utm_source, utm.utm_medium, utm.utm_campaign, utm.utm_content]
-      : [data.request_id, now, safe_(data.name), data.phone, safe_(data.email), data.tariff, data.team_size,
+      : [data.request_id, now, safe_(data.name), "'" + data.phone, safe_(data.email), data.tariff, data.team_size, // «'» сохраняет «+» в телефоне
          data.visit_date || '', utm.utm_source, utm.utm_medium, utm.utm_campaign, utm.utm_content,
          'new'];                                // status из браузера игнорируется
     sheet.appendRow(row);
