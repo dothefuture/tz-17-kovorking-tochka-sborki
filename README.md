@@ -8,8 +8,8 @@
 | Репозиторий | https://github.com/dothefuture/tz-17-kovorking-tochka-sborki |
 | Таблица заявок «TochkaSborki — Leads» | https://docs.google.com/spreadsheets/d/13Nn94ELkmP3sCfH8ftiLKCVR47HpSw0r3SDTAETSvsE/edit |
 | Дашборд DataLens | ___ |
-| Instagram | ___ |
-| Reel с автоответами (ManyChat) | ___ |
+| Instagram | https://www.instagram.com/yasdobnikov/ |
+| Reel с автоответами (ManyChat) | https://www.instagram.com/reel/DfVjbClh6OE/ |
 | ВКонтакте | ___ |
 | Telegram | ___ |
 | YouTube | ___ |
