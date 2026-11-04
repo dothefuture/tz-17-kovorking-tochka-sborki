@@ -5,7 +5,7 @@
   'use strict';
 
   // Адрес веб-приложения Apps Script (Развернуть → Веб-приложение → URL, оканчивается на /exec).
-  var ENDPOINT = 'https://script.google.com/macros/s/PASTE_DEPLOYMENT_ID/exec';
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbwRpt4EUPzQvfpTcv8s1crz1WBrts-QCzimLNUehwOcCwAgG5q11nAmNDbyeaEUxH9J9w/exec';
 
   var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
   var UTM_DEFAULTS = { utm_source: 'direct', utm_medium: 'none', utm_campaign: 'not_set', utm_content: 'not_set' };

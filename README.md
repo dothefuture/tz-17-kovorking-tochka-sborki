@@ -6,7 +6,7 @@
 |---|---|
 | Сайт на Vercel | https://tz-17-kovorking-tochka-sborki.vercel.app |
 | Репозиторий | https://github.com/dothefuture/tz-17-kovorking-tochka-sborki |
-| Таблица заявок «TochkaSborki — Leads» | ___ |
+| Таблица заявок «TochkaSborki — Leads» | https://docs.google.com/spreadsheets/d/13Nn94ELkmP3sCfH8ftiLKCVR47HpSw0r3SDTAETSvsE/edit |
 | Дашборд DataLens | ___ |
 | Instagram | ___ |
 | Reel с автоответами (ManyChat) | ___ |
