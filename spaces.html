@@ -71,28 +71,36 @@
     <h2>Зоны коворкинга</h2>
     <div class="grid grid--2">
       <article class="card" id="open-space">
-        <button class="card__link event-card__more" type="button" data-event="space_view" data-space-type="open_space" aria-label="Open space: подробнее">
-          <img class="card__img" src="img/space-open.webp" alt="Светлый общий зал коворкинга с рабочими столами и креслами" width="600" height="400" loading="lazy">
-          <span class="card__body"><h3>Open space</h3><p>60 рабочих мест в общем зале. Тарифы «Дневной», «Гибкий» и «Фикс».</p></span>
-        </button>
+        <img class="card__img" src="img/space-open.webp" alt="Светлый общий зал коворкинга с рабочими столами и креслами" width="600" height="400" loading="lazy">
+        <div class="card__body">
+          <h3><button class="event-card__more" type="button" aria-expanded="false" aria-controls="open-space-details" data-event="space_view" data-space-type="open_space">Open space</button></h3>
+          <p>60 рабочих мест в общем зале. Тарифы «Дневной», «Гибкий» и «Фикс».</p>
+          <p class="event-card__details" id="open-space-details" hidden>Что входит: скоростной интернет, кухня, кофе и чай, печать до 50 листов в месяц, шкафчик (кроме дневного тарифа).</p>
+        </div>
       </article>
       <article class="card" id="office">
-        <button class="card__link event-card__more" type="button" data-event="space_view" data-space-type="office" aria-label="Кабинеты для команд: подробнее">
-          <img class="card__img" src="img/space-office.webp" alt="Закрытый кабинет для команды с общим столом и окном" width="600" height="400" loading="lazy">
-          <span class="card__body"><h3>Кабинеты для команд</h3><p>8 закрытых кабинетов на 4 и 8 человек: 42 000 ₽ и 78 000 ₽ в месяц, доступ 24/7.</p></span>
-        </button>
+        <img class="card__img" src="img/space-office.webp" alt="Закрытый кабинет для команды с общим столом и окном" width="600" height="400" loading="lazy">
+        <div class="card__body">
+          <h3><button class="event-card__more" type="button" aria-expanded="false" aria-controls="office-details" data-event="space_view" data-space-type="office">Кабинеты для команд</button></h3>
+          <p>8 закрытых кабинетов на 4 и 8 человек: 42 000 ₽ и 78 000 ₽ в месяц, доступ 24/7.</p>
+          <p class="event-card__details" id="office-details" hidden>Кабинет на 4 человека — 42 000 ₽ в месяц, на 8 человек — 78 000 ₽ в месяц. Доступ 24/7, шкафчики, кухня.</p>
+        </div>
       </article>
       <article class="card" id="meeting">
-        <button class="card__link event-card__more" type="button" data-event="space_view" data-space-type="meeting_room" aria-label="Переговорные: подробнее">
-          <img class="card__img" src="img/space-meeting.webp" alt="Переговорная с длинным столом, экраном и креслами" width="600" height="400" loading="lazy">
-          <span class="card__body"><h3>Переговорные</h3><p>3 переговорные для встреч и созвонов. 900 ₽ в час, в «Фикс» 5 часов включены.</p></span>
-        </button>
+        <img class="card__img" src="img/space-meeting.webp" alt="Переговорная с длинным столом, экраном и креслами" width="600" height="400" loading="lazy">
+        <div class="card__body">
+          <h3><button class="event-card__more" type="button" aria-expanded="false" aria-controls="meeting-details" data-event="space_view" data-space-type="meeting_room">Переговорные</button></h3>
+          <p>3 переговорные для встреч и созвонов. 900 ₽ в час, в «Фикс» 5 часов включены.</p>
+          <p class="event-card__details" id="meeting-details" hidden>Почасовая аренда — 900 ₽ в час. В тарифе «Фикс» 5 часов переговорной в месяц включены.</p>
+        </div>
       </article>
       <article class="card" id="kitchen">
-        <button class="card__link event-card__more" type="button" data-event="space_view" data-space-type="kitchen" aria-label="Кухня: подробнее">
-          <img class="card__img" src="img/space-kitchen.webp" alt="Кухня коворкинга со стойкой, кофемашиной и высокими стульями" width="600" height="400" loading="lazy">
-          <span class="card__body"><h3>Кухня</h3><p>Общая кухня для всех резидентов: кофе и чай входят в любой тариф.</p></span>
-        </button>
+        <img class="card__img" src="img/space-kitchen.webp" alt="Кухня коворкинга со стойкой, кофемашиной и высокими стульями" width="600" height="400" loading="lazy">
+        <div class="card__body">
+          <h3><button class="event-card__more" type="button" aria-expanded="false" aria-controls="kitchen-details" data-event="space_view" data-space-type="kitchen">Кухня</button></h3>
+          <p>Общая кухня для всех резидентов: кофе и чай входят в любой тариф.</p>
+          <p class="event-card__details" id="kitchen-details" hidden>Кофе и чай входят в любой тариф, в том числе в тест-день.</p>
+        </div>
       </article>
     </div>
   </div>
