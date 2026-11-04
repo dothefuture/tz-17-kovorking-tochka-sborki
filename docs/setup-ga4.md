@@ -1,5 +1,17 @@
 # GA4: настройка и проверка (ТЗ, разделы 4 и 8)
 
+## Статус (5 ноября 2026)
+| Что | Состояние |
+|---|---|
+| Ресурс «ТОЧКА СБОРКИ — сайт» (аккаунт faktishka, property 562425569), (GMT+03:00) Москва, RUB | ✅ создан |
+| Веб-поток «Сайт на Vercel», `https://tz-17-kovorking-tochka-sborki.vercel.app`, stream 16274122151 | ✅ создан |
+| Measurement ID **G-GJGYBG03CN** в `<head>` всех 9 страниц | ✅ |
+| Расширенная статистика: все 7 переключателей, включая формы и скачивания | ✅ включено |
+| 7 пользовательских параметров (Event scope) | ✅ созданы |
+| Лишние ключевые `close_convert_lead`, `qualify_lead` (мастер создал сам) | ✅ сняты |
+| Ключевые `generate_lead`, `contact_click`, `messenger_click` | ⏳ события отправлены и видны в DebugView; отметить звёздочкой, когда появятся в «Недавних событиях» (п. 3) |
+| Доступ Viewer Заказчику | ⏳ e-mail Заказчика неизвестен (п. 5) |
+
 ## 1. Ресурс и поток (4.1)
 1. analytics.google.com → Admin → **Create → Property**: название `ТОЧКА СБОРКИ — сайт`, часовой пояс **(GMT+03:00) Москва**, валюта **Российский рубль (RUB)**.
 2. Data streams → **Web** → URL `https://tz-17-kovorking-tochka-sborki.vercel.app`, название `Сайт на Vercel`.
@@ -16,8 +28,10 @@ Admin → Data display → **Custom definitions → Create custom dimension**, S
 (Dimension name = Event parameter = то же имя).
 
 ## 3. Ключевые события (4.5)
-Admin → Data display → **Events** (или Key events → New key event): отметить **только** `generate_lead`, `contact_click`, `messenger_click`.
-Если событие ещё не приходило — создать ключевое событие вручную по имени.
+Admin → Просмотр данных → **События** → вкладка **«Недавние события»** → нажать звёздочку у `generate_lead`, `contact_click`,
+`messenger_click`. В текущем интерфейсе GA4 событие появляется в списке только после первой отправки и обработки (от нескольких часов
+до суток). На вкладке «Ключевые события» должны остаться **только эти три** (мастер создания ресурса с целью «Привлечение лидов» сам
+добавляет `close_convert_lead` и `qualify_lead` — с них звёздочка снята).
 
 ## 4. Проверка в DebugView (4.6)
 1. Открыть сайт с `?ga_debug=1` (или расширение Google Analytics Debugger).
