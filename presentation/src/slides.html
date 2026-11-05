@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Защита курсовой — Точка сборки</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+  /* 1280×720 px = 13.33×7.5 in; 1 px = 0.75 pt → минимальный кегль 27 px ≈ 20 pt */
+  @page { size: 1280px 720px; margin: 0; }
+  :root { --green:#1E8F6E; --green-d:#146B52; --sand:#F2E6D0; --sand-l:#F8F2E6; --ink:#1F2422; --muted:#4d5552; --line:#e2d6bf; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { background:#888; }
+  body { font-family:Inter, sans-serif; color:var(--ink); -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .slide { width:1280px; height:720px; position:relative; overflow:hidden; background:#fff; padding:56px 72px; page-break-after:always; break-after:page; }
+  .slide + .slide { margin-top:0; }
+  .num { position:absolute; right:40px; bottom:28px; font-size:27px; font-weight:700; color:var(--green); }
+  .brand { position:absolute; left:72px; bottom:30px; font-size:27px; font-weight:700; letter-spacing:.5px; color:var(--muted); display:flex; align-items:center; gap:12px; }
+  .brand svg { width:30px; height:30px; }
+  h2 { font-size:50px; line-height:1.08; font-weight:800; letter-spacing:-1px; max-width:1100px; }
+  h2 em { font-style:normal; color:var(--green); }
+  .lead { font-size:28px; line-height:1.35; color:var(--muted); margin-top:16px; max-width:1100px; }
+  .t { font-size:28px; line-height:1.35; }
+  .shot { border-radius:14px; box-shadow:0 6px 28px rgba(31,36,34,.16); border:1px solid #e6e1d6; display:block; }
+  .cap { font-size:27px; color:var(--muted); margin-top:10px; }
+  .pill { display:inline-block; background:var(--green); color:#fff; border-radius:40px; padding:6px 22px; font-size:27px; font-weight:700; }
+  code { font-family:Inter, sans-serif; font-weight:700; color:var(--green-d); }
+  .sand { background:var(--sand-l); }
+
+  /* 1 — title */
+  .s1 { padding:0; background:var(--ink); }
+  .s1 .bg { position:absolute; top:0; bottom:0; right:0; left:60%; background:url(../../screens/kursovaya/01-site-home.png) center/cover; opacity:.35; }
+  .s1 .in { position:absolute; inset:0; padding:72px; display:flex; flex-direction:column; justify-content:center; color:#fff; background:linear-gradient(90deg, #146B52 0%, #146B52 60%, rgba(20,107,82,.6) 72%, rgba(20,107,82,.25) 100%); }
+  .s1 .logo { display:flex; align-items:center; gap:16px; font-size:30px; font-weight:800; letter-spacing:2px; }
+  .s1 .logo svg { width:52px; height:52px; }
+  .s1 h1 { font-size:60px; line-height:1.08; font-weight:800; letter-spacing:-1.2px; margin-top:34px; max-width:960px; }
+  .s1 .meta { font-size:28px; line-height:1.5; margin-top:34px; color:#e6f3ee; }
+  .s1 .num { color:#fff; }
+
+  /* 2 — problem */
+  .big { display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; margin-top:44px; }
+  .big div { background:var(--sand); border-radius:20px; padding:26px 28px; }
+  .big b { display:block; font-size:72px; font-weight:800; color:var(--green-d); line-height:1; }
+  .big span { display:block; font-size:28px; margin-top:10px; line-height:1.3; }
+  .chips { display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
+  .chips span { border:2px solid var(--green); color:var(--green-d); border-radius:40px; padding:6px 20px; font-size:27px; font-weight:600; }
+
+  /* 4 — site */
+  .row { display:flex; gap:28px; align-items:flex-start; margin-top:28px; }
+  .facts { display:flex; gap:18px; margin-top:26px; }
+  .facts div { background:var(--sand); border-radius:16px; padding:14px 22px; font-size:27px; }
+  .facts b { color:var(--green-d); font-size:34px; font-weight:800; margin-right:6px; }
+
+  /* 5 — lead path */
+  .path { display:flex; align-items:flex-start; gap:12px; margin-top:28px; }
+  .step { flex:1; }
+  .step .n { width:46px; height:46px; border-radius:50%; background:var(--green); color:#fff; font-size:27px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-bottom:12px; }
+  .arrow { font-size:44px; color:var(--green); margin-top:150px; font-weight:800; }
+  .json { background:var(--ink); color:#e8efe9; border-radius:14px; padding:20px 22px; font-size:27px; line-height:1.45; font-weight:500; }
+  .json i { font-style:normal; color:#7fd4b5; }
+
+  /* code */
+  pre.code { background:var(--ink); color:#e8efe9; border-radius:16px; padding:24px 28px; font-family:Inter, sans-serif; font-size:27px; line-height:1.5; white-space:pre; }
+  pre.code .c { color:#93a39c; }
+  pre.code .k { color:#7fd4b5; font-weight:700; }
+  pre.code .s { color:#f2d59b; }
+
+  /* funnel */
+  .funnel { display:flex; flex-direction:column; gap:12px; margin-top:30px; }
+  .funnel div { background:var(--green); color:#fff; border-radius:12px; height:62px; display:flex; align-items:center; padding:0 26px; font-size:28px; font-weight:700; }
+  .funnel div span { font-weight:500; opacity:.85; margin-left:14px; }
+
+  /* tabs dl */
+  .tabs3 { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:34px; }
+  .tabs3 div { border:2px solid var(--green); border-radius:18px; padding:22px 24px; }
+  .tabs3 b { display:block; font-size:32px; color:var(--green-d); margin-bottom:10px; }
+  .tabs3 p { font-size:27px; line-height:1.35; }
+
+  /* table */
+  table { border-collapse:collapse; width:100%; margin-top:26px; font-size:27px; }
+  th { text-align:left; font-weight:700; color:#fff; background:var(--green-d); padding:12px 18px; }
+  td { padding:11px 18px; border-bottom:2px solid var(--line); line-height:1.3; }
+  td:first-child { color:var(--muted); width:46%; }
+  .reco { margin-top:22px; background:var(--sand); border-left:8px solid var(--green); padding:16px 22px; font-size:27px; line-height:1.35; border-radius:0 12px 12px 0; }
+
+  /* ai */
+  .cols { display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:30px; }
+  .cols h3 { font-size:30px; color:var(--green-d); margin-bottom:12px; }
+  .cols li { font-size:27px; line-height:1.35; margin:0 0 12px 30px; }
+
+  /* links */
+  .links { display:grid; grid-template-columns:1fr 250px; gap:40px; margin-top:32px; align-items:start; }
+  .links dl { font-size:27px; line-height:1.3; }
+  .links dt { font-weight:700; color:var(--green-d); margin-top:16px; }
+  .links dd { word-break:break-all; }
+  .qr { text-align:center; font-size:27px; color:var(--muted); }
+  .qr img { width:230px; height:230px; display:block; margin-bottom:8px; }
+
+  @media print { html, body { background:#fff; } }
+</style>
+</head>
+<body>
+
+<!-- 1. Титул -->
+<section class="slide s1" data-notes="Здравствуйте. Моя курсовая — по ТЗ № 17: сайт и сквозная аналитика заявок для коворкинга «Точка сборки» в Новоозёрске.">
+  <div class="bg"></div>
+  <div class="in">
+    <div class="logo"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="11" fill="none" stroke="#fff" stroke-width="3"/><circle cx="20" cy="20" r="4.5" fill="#fff"/><path d="M0 20h7M33 20h7M20 0v7M20 33v7" stroke="#fff" stroke-width="3"/></svg>ТОЧКА СБОРКИ</div>
+    <h1>Сайт и сквозная аналитика заявок для коворкинга «Точка сборки»</h1>
+    <div class="meta">ТЗ № 17/2026 · ОП.03 «Информационные технологии»<br>{{ФИО}}, группа {{ГРУППА}}</div>
+  </div>
+  <div class="num">1</div>
+</section>
+
+<!-- 2. Проблема -->
+<section class="slide" data-notes="Коворкинг большой: 60 мест, 8 кабинетов, 3 переговорные. Продвигается сразу в шести местах — Instagram, ВКонтакте, Telegram, YouTube, у блогеров и на ресепшен бизнес-центра. Заявки приходят в разные места, и руководитель не знает, какой канал приводит клиентов, а значит, делит бюджет на глаз. С 1 ноября стартует акция «тест-день бесплатно», и её нужно измерить.">
+  <h2>Каналов много — какой приводит клиентов, <em>неизвестно</em></h2>
+  <div class="big">
+    <div><b>60</b><span>мест в open space</span></div>
+    <div><b>8 + 3</b><span>кабинетов и переговорных</span></div>
+    <div><b>−15 %</b><span>акция с 1 ноября: тест-день бесплатно</span></div>
+  </div>
+  <p class="lead">Заявки приходят из шести каналов в разные места — бюджет делится «на глаз»:</p>
+  <div class="chips"><span>Instagram</span><span>ВКонтакте</span><span>Telegram</span><span>YouTube</span><span>блогеры</span><span>QR на ресепшен</span></div>
+  <div class="num">2</div>
+</section>
+
+<!-- 3. Схема -->
+<section class="slide" style="padding:40px 56px" data-notes="Схема решения. Посетитель приходит по ссылке с UTM-меткой из реестра — из соцсетей, от блогера или по QR. Сайт отправляет события в GA4, а заявку — через Apps Script в Google Таблицу вместе с метками. Из GA4 и таблицы собирается дашборд DataLens для руководителя.">
+  <h2 style="font-size:40px">Схема: ссылка с меткой → сайт → GA4 и таблица → дашборд</h2>
+  <img class="shot" src="../../docs/scheme.png" style="width:1010px; margin:20px auto 0;">
+  <div class="num">3</div>
+</section>
+
+<!-- 4. Сайт -->
+<section class="slide" data-notes="Сайт — 8 страниц и 404 на чистом HTML, CSS и JavaScript, опубликован на Vercel. Сделан с помощью нейросети Claude Code и доработан по проверкам. Адаптив под телефон. Lighthouse на телефоне: доступность, практики и SEO — по 100, производительность 78.">
+  <h2>Сайт: 9 страниц на Vercel, <em>адаптив под телефон</em></h2>
+  <div class="row">
+    <img class="shot" src="../../screens/kursovaya/01-site-home.png" style="width:640px">
+    <img class="shot" src="../../screens/kursovaya/02-site-mobile.png" style="width:190px; height:400px; object-fit:cover; object-position:top">
+  </div>
+  <div class="facts" style="margin-top:-400px; margin-left:900px; flex-direction:column; width:236px"><div><b>9</b>страниц</div><div>Lighthouse<br><b style="font-size:28px">78·100·100·100</b></div><div>Claude Code</div></div>
+  <div class="num">4</div>
+</section>
+
+<!-- 5. Путь заявки -->
+<section class="slide" style="padding-top:48px" data-notes="Путь одной заявки. Человек нажимает кнопку в Direct — открывается free-day.html с метками instagram, social, free_day_nov_2026. Метки сохраняются в sessionStorage. Он заполняет форму, сайт проверяет поля и отправляет заявку в Apps Script. Приёмник записывает строку в лист leads вместе с метками, а сайт отправляет generate_lead в GA4. Здесь — живой показ: переход по ссылке, форма, строка в таблице, событие в Realtime.">
+  <h2>Путь заявки: источник <em>не теряется</em></h2>
+  <div class="path">
+    <div class="step" style="flex:1.5"><div class="n">1</div><img class="shot" src="../../screens/kursovaya/03-landing-utm.png" style="width:100%"><p class="cap">ссылка U-02 с метками</p></div>
+    <div class="arrow">→</div>
+    <div class="step" style="flex:0 0 280px"><div class="n">2</div><img class="shot" src="../../screens/kursovaya/04-form.png" style="width:280px"><p class="cap">форма</p></div>
+    <div class="arrow">→</div>
+    <div class="step" style="flex:1.3"><div class="n">3</div><div class="json">лист <i>leads</i>:<br>instagram · social<br>free_day_nov_2026<br>reel_day_01 · <i>new</i></div><p class="cap">строка + <code>generate_lead</code></p></div>
+  </div>
+  <div class="num">5</div>
+</section>
+
+<!-- 6. Instagram -->
+<section class="slide" data-notes="Instagram. Опубликован Reel «Один день в коворкинге». В ManyChat две автоматизации: на слово ДЕНЬ человек получает в Direct кнопку «Тест-день» со ссылкой U-02, на слово КОМАНДА — кнопку «Кабинеты» со ссылкой U-03. Ответ приходит сразу, а переход с кнопки виден в GA4 как instagram.">
+  <h2>Instagram → сайт: ManyChat отвечает <em>сразу</em></h2>
+  <div class="row" style="margin-top:30px">
+    <img class="shot" src="../../screens/instagram/reel-frames.png" style="width:500px">
+    <img class="shot" src="../../screens/kursovaya/07-manychat-live.png" style="width:560px">
+  </div>
+  <p class="t" style="margin-top:22px"><b>ДЕНЬ</b> → кнопка «Тест-день» (U-02) · <b>КОМАНДА</b> → «Кабинеты» (U-03)</p>
+  <div class="num">6</div>
+</section>
+
+<!-- 7. GA4 -->
+<section class="slide" data-notes="GA4. Ресурс G-GJGYBG03CN. Двадцать событий: шесть автоматических, generate_lead и тринадцать своих. Семь пользовательских параметров. Ключевые события — generate_lead, contact_click и messenger_click. Все отправки идут через одну функцию track в analytics.js, а generate_lead отправляется только после ответа приёмника ok: true — поэтому в GA4 не попадают заявки, которые не записались.">
+  <h2>GA4 <em>G-GJGYBG03CN</em>: 20 событий, 3 ключевых</h2>
+  <div class="facts"><div><b>20</b>событий</div><div><b>7</b>параметров</div><div><b>3</b>ключевых</div></div>
+  <pre class="code" style="margin-top:26px"><span class="c">// js/form.js:189 — только после ответа приёмника ok: true</span>
+<span class="k">track</span>(<span class="s">'generate_lead'</span>, {
+  lead_tariff: data.tariff,
+  lead_source: data.utm_source
+});</pre>
+  <div class="num">7</div>
+</section>
+
+<!-- 8. Воронка -->
+<section class="slide" data-notes="Воронка в Explore — пять шагов от просмотра страницы до заявки. Сделаны открытая и закрытая версии, разбивка по источнику и по устройству. Данные собираются с 5 ноября; по воронке видно, на каком шаге теряются люди. Гипотеза: больше всего уходит между интересом к зонам и нажатием кнопки записи — проверяем, переставив кнопку выше на странице.">
+  <h2>Воронка: 5 шагов от визита <em>до заявки</em></h2>
+  <div class="funnel">
+    <div style="width:100%">page_view<span>открыл страницу</span></div>
+    <div style="width:88%">space_view<span>смотрит зоны</span></div>
+    <div style="width:74%">cta_click<span>«Записаться»</span></div>
+    <div style="width:62%">form_start<span>начал форму</span></div>
+    <div style="width:50%; background:var(--green-d)">generate_lead<span>заявка</span></div>
+  </div>
+  <p class="cap" style="margin-top:18px">Шаги исследования в Explore · открытая и закрытая · по источнику и устройству</p>
+  <div class="num">8</div>
+</section>
+
+<!-- 9. DataLens -->
+<section class="slide" data-notes="Дашборд DataLens. Руководитель открывает одну ссылку. Три вкладки: «Трафик» — сеансы по источникам, «Заявки» — все заявки и их статусы, «Кампании» — главная: сеансы и generate_lead из GA4 рядом с заявками и оплатами из таблицы по каждому каналу. Имя, телефон и почта в дашборде скрыты.">
+  <h2>DataLens: одна ссылка — <em>весь путь клиента</em></h2>
+  <div class="tabs3">
+    <div><b>Трафик</b><p>сеансы, пользователи и заявки по источникам и дням</p></div>
+    <div><b>Заявки</b><p>все заявки, новые и оплаченные; статусы по каналам</p></div>
+    <div style="background:var(--sand-l)"><b>Кампании</b><p>сеансы и generate_lead из GA4 + заявки и <code>paid</code> из таблицы</p></div>
+  </div>
+  <pre class="code" style="margin-top:26px"><span class="c">// вкладка «Заявки» — индикаторы</span>
+<span class="k">COUNTD</span>([request_id])
+<span class="k">COUNTD_IF</span>([request_id], [status] = <span class="s">"paid"</span>)
+<span class="c">// связь GA4 и таблицы: source + campaign + дата</span></pre>
+  <p class="cap" style="margin-top:14px">Имя, телефон и e-mail в датасете скрыты.</p>
+  <div class="num">9</div>
+</section>
+
+<!-- 10. Бизнес -->
+<section class="slide" style="padding-top:46px" data-notes="Что получил бизнес. Все заявки в одной таблице со статусом. У каждой заявки есть канал и кампания. ManyChat отвечает сразу. На дашборде видно заявки и оплаты по каждому каналу. Рекомендация: через две недели сравнить оплаты на 100 сеансов по каналам и перенести бюджет блогеров в лучший канал.">
+  <h2>Что получил бизнес</h2>
+  <table>
+    <tr><th>Было</th><th>Стало</th></tr>
+    <tr><td>заявки в разных местах</td><td>одна таблица, статус new → paid</td></tr>
+    <tr><td>источник клиента неизвестен</td><td>у каждой заявки канал и кампания</td></tr>
+    <tr><td>ответы в комментариях вручную</td><td>ManyChat отвечает сразу</td></tr>
+    <tr><td>бюджет «на глаз»</td><td>заявки и оплаты по каналам</td></tr>
+  </table>
+  <div class="reco"><b>Рекомендация:</b> через 2 недели сравнить оплаты на 100 сеансов и перенести бюджет блогеров в лучший канал.</div>
+  <div class="num">10</div>
+</section>
+
+<!-- 11. ИИ -->
+<section class="slide" data-notes="Нейросеть Claude Code сделала страницы, стили, код аналитики и приёмника, реестр ссылок и документы. Вручную пришлось исправить разметку карточек, пути на странице 404, повторную отправку формы и формулы в таблице. Аккаунты и публикации делал сам. Не успел к сдаче: ВКонтакте, Telegram, YouTube и ссылки блогеров, а отчёты и дашборд ждут накопления данных.">
+  <h2>ИИ помог, но <em>проверять пришлось самому</em></h2>
+  <div class="cols">
+    <div><h3>Сделал ИИ (Claude Code)</h3><ul>
+      <li>страницы, стили, изображения</li>
+      <li>код GA4 и Apps Script</li>
+      <li>реестр UTM, QR, афиша</li></ul></div>
+    <div><h3>Исправлено и не успел</h3><ul>
+      <li>разметка карточек, 404, дубли</li>
+      <li>формулы «=» в таблице</li>
+      <li>не успел: ВК, Telegram, YouTube</li></ul></div>
+  </div>
+  <p class="reco" style="margin-top:34px">Все запросы к нейросети — в <code>docs/prompts.md</code>. Аккаунты, публикацию Reel и проверки делал сам.</p>
+  <div class="num">11</div>
+</section>
+
+<!-- 12. Ссылки -->
+<section class="slide" data-notes="Все ссылки на слайде и в README репозитория. Спасибо, готов ответить на вопросы.">
+  <h2>Ссылки</h2>
+  <div class="links">
+    <dl>
+      <dt>Сайт</dt><dd>tz-17-kovorking-tochka-sborki.vercel.app</dd>
+      <dt>Репозиторий</dt><dd>github.com/dothefuture/tz-17-kovorking-tochka-sborki</dd>
+      <dt>Reel с автоответами</dt><dd>instagram.com/reel/DfVjbClh6OE</dd>
+      <dt>GA4</dt><dd>G-GJGYBG03CN</dd>
+    </dl>
+    <div class="qr"><img src="qr-repo.png" alt="QR-код репозитория">репозиторий</div>
+  </div>
+  <div class="num">12</div>
+</section>
+
+</body>
+</html>

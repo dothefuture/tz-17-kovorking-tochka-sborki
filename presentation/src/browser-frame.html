@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><title>frame</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<style>*{margin:0;box-sizing:border-box}body{width:1280px;font-family:Inter,sans-serif;background:#fff}
+.bar{height:56px;background:#eceae6;display:flex;align-items:center;gap:14px;padding:0 18px;border-bottom:1px solid #d6d2ca}
+.dots{display:flex;gap:8px}.dots i{width:13px;height:13px;border-radius:50%;background:#d0ccc4;display:block}
+.url{flex:1;height:36px;border-radius:18px;background:#fff;display:flex;align-items:center;padding:0 14px;font-size:13.5px;color:#3b403e;white-space:nowrap;overflow:hidden}
+.url b{color:#1F2422;font-weight:600}.url em{font-style:normal;color:#146B52;font-weight:600}
+img{display:block;width:1280px}</style></head><body>
+<div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url" id="u"></div></div><img id="i">
+<script>const q=new URLSearchParams(location.search);const u=q.get('url');document.getElementById('i').src=q.get('img');
+const [base,qs]=u.split('?');document.getElementById('u').innerHTML='<b>'+base.replace('https://','')+'</b>'+(qs?'?'+qs.split('&').map(p=>{const [k,v]=p.split('=');return k+'=<em>'+v+'</em>'}).join('&'):'');</script>
+</body></html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Схема работы — Точка сборки</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+  :root { --green:#1E8F6E; --green-d:#146B52; --sand:#F2E6D0; --ink:#1F2422; --muted:#5b625f; --line:#d8ccb4; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { width:1600px; height:900px; font-family:Inter, sans-serif; color:var(--ink); background:#fff; position:relative; overflow:hidden; padding:40px 56px; }
+  h1 { font-size:34px; font-weight:800; letter-spacing:-.5px; }
+  h1 span { color:var(--green); }
+  .sub { margin-top:8px; font-size:19px; color:var(--muted); }
+  .grid { display:grid; grid-template-columns:310px 330px 350px 270px; column-gap:86px; margin-top:34px; position:relative; z-index:1; }
+  .col { display:flex; flex-direction:column; gap:16px; justify-content:center; }
+  .col-title { font-size:15px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--green-d); margin-bottom:4px; }
+  .head { display:grid; grid-template-columns:310px 330px 350px 270px; column-gap:86px; margin-top:30px; }
+  .grid { margin-top:14px; height:640px; }
+  .box { border-radius:16px; padding:14px 18px; background:#fff; border:2px solid var(--line); }
+  .box b { display:block; font-size:19px; font-weight:700; margin-bottom:4px; }
+  .box small { display:block; font-size:15px; color:var(--muted); line-height:1.38; }
+  .box code { font-family:Inter, sans-serif; font-weight:600; color:var(--green-d); }
+  .src { background:var(--sand); border-color:var(--sand); }
+  .hub { background:var(--green); border-color:var(--green); color:#fff; }
+  .hub small, .hub code { color:#e6f5ee; }
+  .data { border-color:var(--green); }
+  .dl { background:var(--ink); border-color:var(--ink); color:#fff; }
+  .dl small { color:#c9d0cd; }
+  svg { position:absolute; inset:0; z-index:0; }
+  .lbl { font:600 14px Inter, sans-serif; fill:var(--green-d); paint-order:stroke; stroke:#fff; stroke-width:5px; }
+  .foot { position:absolute; left:56px; bottom:28px; font-size:16px; color:var(--muted); }
+</style>
+</head>
+<body>
+<h1>Схема работы · <span>«Точка сборки»</span> · кампания free_day_nov_2026</h1>
+<p class="sub">Путь посетителя: публикация с UTM-меткой → сайт → событие в GA4 и строка в таблице → дашборд для руководителя</p>
+
+<div class="head">
+  <div class="col-title">Откуда приходят</div><div class="col-title">Сайт</div>
+  <div class="col-title">Куда пишутся данные</div><div class="col-title">Что видит бизнес</div>
+</div>
+<div class="grid">
+  <div class="col">
+    <div class="box src" id="s1"><b>Instagram · Reel</b><small>ManyChat: <code>ДЕНЬ</code> → U-02, <code>КОМАНДА</code> → U-03</small></div>
+    <div class="box src" id="s2"><b>Instagram · шапка, Stories</b><small>ссылки U-01, U-04</small></div>
+    <div class="box src" id="s3"><b>ВКонтакте · Telegram · YouTube</b><small>U-05…U-09, короткие vk.cc и clck.ru</small></div>
+    <div class="box src" id="s4"><b>Партнёры-блогеры</b><small>U-10, U-11, medium = affiliate</small></div>
+    <div class="box src" id="s5"><b>QR на ресепшен БЦ</b><small>U-12, афиша A4 <code>docs/afisha.pdf</code></small></div>
+  </div>
+  <div class="col" style="gap:56px">
+    <div class="box hub" id="site">
+      <b>Сайт на Vercel</b>
+      <small>tz-17-kovorking-tochka-sborki.vercel.app<br>8 страниц + 404, HTML / CSS / JS</small>
+      <small style="margin-top:14px"><code>js/form.js</code> — метки из адреса → sessionStorage, проверка полей, отправка заявки</small>
+      <small style="margin-top:10px"><code>js/analytics.js</code> — все 20 событий GA4 через одну функцию <code>track()</code></small>
+    </div>
+    <div class="box" id="utm"><b>Реестр 12 UTM-ссылок</b><small><code>docs/utm.csv</code> и лист <code>utm</code> таблицы — ссылки берутся только отсюда</small></div>
+  </div>
+  <div class="col" style="gap:40px">
+    <div class="box data" id="ga"><b>Google Analytics 4</b><small><code>G-GJGYBG03CN</code> · 20 событий, 7 параметров<br>ключевые: generate_lead, contact_click, messenger_click</small></div>
+    <div class="box data" id="as"><b>Apps Script <code>doPost</code></b><small>проверка полей, защита от дублей по request_id, экранирование «=»</small></div>
+    <div class="box data" id="sh"><b>Google Таблица «TochkaSborki — Leads»</b><small>лист <code>leads</code>: заявка + метки + статус<br>new → contacted → visit_booked → visited → paid / lost</small></div>
+  </div>
+  <div class="col" style="gap:56px">
+    <div class="box dl" id="dl"><b>Yandex DataLens</b><small>вкладки «Трафик», «Заявки», «Кампании»: сеансы, заявки и оплаты по каждому каналу</small></div>
+    <div class="box" id="boss"><b>Руководитель</b><small>видит, какой канал приводит клиентов, и делит бюджет по данным</small></div>
+  </div>
+</div>
+<svg id="svg" width="1600" height="900">
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1E8F6E"/></marker></defs>
+</svg>
+<p class="foot">Имя, телефон и e-mail в GA4 не передаются — только в таблицу; в DataLens эти поля скрыты.</p>
+<script>
+  const svg = document.getElementById('svg');
+  const r = id => document.getElementById(id).getBoundingClientRect();
+  function path(d) { const p = document.createElementNS('http://www.w3.org/2000/svg','path'); p.setAttribute('d', d); p.setAttribute('stroke','#1E8F6E'); p.setAttribute('stroke-width','3'); p.setAttribute('fill','none'); p.setAttribute('marker-end','url(#a)'); svg.appendChild(p); }
+  function label(x, y, t) { const e = document.createElementNS('http://www.w3.org/2000/svg','text'); e.setAttribute('x', x); e.setAttribute('y', y); e.setAttribute('class','lbl'); e.setAttribute('text-anchor','middle'); e.textContent = t; svg.appendChild(e); }
+  function h(a, b, fy, ty, txt) { // horizontal curve from right of a to left of b
+    const A = r(a), B = r(b); const x1 = A.right, y1 = A.top + A.height * (fy ?? .5), x2 = B.left - 4, y2 = B.top + B.height * (ty ?? .5); const mx = (x1 + x2) / 2;
+    path(`M${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`); if (txt) label(mx, (y1 + y2) / 2 - 8, txt);
+  }
+  function v(a, b, txt) { const A = r(a), B = r(b); const x = A.left + A.width / 2; path(`M${x} ${A.bottom} L ${x} ${B.top - 4}`); if (txt) label(x + 34, (A.bottom + B.top) / 2 + 5, txt); }
+  document.fonts.ready.then(() => {
+    const ty = [.2, .35, .5, .65, .8];
+    ['s1','s2','s3','s4','s5'].forEach((s, i) => h(s, 'site', .5, ty[i]));
+    label((r('s1').right + r('site').left) / 2, r('s1').top - 2, 'ссылка с UTM');
+    h('site', 'ga', .25, .5, 'события');
+    h('site', 'as', .7, .5, 'заявка');
+    v('as', 'sh', '');
+    h('ga', 'dl', .5, .3, 'выгрузка');
+    h('sh', 'dl', .5, .75, '');
+    v('dl', 'boss', '');
+    const U = r('utm'), S = r('site'); path(`M${U.left + U.width/2} ${U.top} L ${U.left + U.width/2} ${S.bottom + 4}`);
+  });
+</script>
+</body>
+</html>
