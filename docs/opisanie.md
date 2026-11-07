@@ -117,6 +117,10 @@ track('generate_lead', { lead_tariff: data.tariff, team_size: data.team_size, le
 
 > **Что на кадре.** Администратор → События → «Недавние события»: события, которые сайт уже прислал в ресурс, — автоматические (`page_view`, `scroll`, `click`, `form_start`, `first_visit`, `session_start`) и свои (`contact_click`, `cta_click`, `form_error`, `generate_lead`, `messenger_click`, `select_tariff`, ниже `social_click`). Звёздочка слева отмечает событие как ключевое.
 
+![Ключевые события ресурса](../screens/ga4/04-key-events.png)
+
+> **Что на кадре.** Администратор → События → вкладка «Ключевые события»: звёздочкой отмечены `contact_click`, `generate_lead` и `messenger_click` — заявка с сайта, клик по телефону или почте и переход в мессенджер. Их GA4 считает конверсиями в отчётах. `purchase` — системное событие GA4, на сайте не используется (поток данных не обнаружен).
+
 ![Пользовательские параметры событий](../screens/ga4/02-custom-definitions.png)
 
 > **Что на кадре.** Администратор → Специальные определения: 7 пользовательских параметров с областью действия «Событие», созданы 5 ноября 2026 г. — `best_tariff`, `button_name`, `event_id`, `lead_tariff`, `messenger`, `page_section`, `space_type`. Без них значения параметров не появились бы в отчётах.
